@@ -1,0 +1,49 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:2:3-19:14
+INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:2:3-19:14
+INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:2:3-19:14
+	package
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:3:7-61
+		INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:2:13-71
+uses-permission#android.permission.DISABLE_KEYGUARD
+ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:5:7-76
+	android:name
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:5:24-74
+uses-permission#android.permission.REORDER_TASKS
+ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:6:7-74
+	android:name
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:6:24-71
+application
+ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:8:7-17:21
+service#com.getcapacitor.community.audio.service.NowPlayingService
+ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:10:9-13:59
+	android:exported
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:12:11-35
+	android:foregroundServiceType
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:13:11-56
+	android:name
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:11:11-84
+receiver#com.getcapacitor.community.audio.service.NowPlayingBroadcastReceiver
+ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:14:11-16:22
+	android:exported
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:15:15-38
+	android:name
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:14:21-104
+uses-sdk
+INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+		ADDED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml

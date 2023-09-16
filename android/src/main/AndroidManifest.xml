@@ -1,0 +1,19 @@
+
+  <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.getcapacitor.community.audio.nativeaudio">
+
+      <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+      <uses-permission android:name="android.permission.REORDER_TASKS" />
+
+      <application>
+
+        <service
+          android:name="com.getcapacitor.community.audio.service.NowPlayingService"
+          android:exported="false"
+          android:foregroundServiceType="mediaPlayback" />
+          <receiver android:name="com.getcapacitor.community.audio.service.NowPlayingBroadcastReceiver"
+              android:exported="true">
+          </receiver>
+      </application>
+
+  </manifest>

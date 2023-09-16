@@ -1,0 +1,8 @@
+R_DEF: Internal format may change without notice
+local
+drawable dreamcatcher_icon_statusbar
+drawable ic_android_black_24dp
+id webview
+layout bridge_layout_main
+raw silence
+string my_string
