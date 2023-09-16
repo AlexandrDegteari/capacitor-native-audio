@@ -36,7 +36,7 @@ export interface NativeAudio {
   playNextQueueTrack( id: string ): Promise<void>;
   playPreviousQueueTrack( id: string ): Promise<void>;
   getQueueTrackCurrentTime( id: string ): Promise<number>;
-  getCurrentQueueIndex(): Promise<number>;
+  getQueuePlayingIndex(options: { id: string }): Promise<number>;
   setQueueLoopIndex(options: { id: string, index: number, set: boolean }): Promise<number>;
   setQueueVolume(options: { id: string, volume: number} ): Promise<void>;
   queueHasTrackWith(options: { id: string, url: string } ): Promise<{ has: boolean }>;

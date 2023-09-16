@@ -1,5 +1,6 @@
 package com.getcapacitor.community.audio.service
 
+import android.widget.Toast
 import com.getcapacitor.community.audio.NativeAudio
 import com.getcapacitor.community.audio.queue.QueueTrack
 
@@ -13,9 +14,11 @@ class ForegroundServiceController(private val owner: NativeAudio) {
 
     fun playerStartedPlaying(track: QueueTrack) {
         owner.queueHandler.postTask {
-            val item = playingTracks.firstOrNull { predicate(it, track) }
+            var item = playingTracks.firstOrNull { predicate(it, track) }
             if (item == null) {
-                playingTracks.add(NowPlayingItem(track, 1))
+                item = NowPlayingItem(track, 1)
+                item.timePlayStarted = System.currentTimeMillis()
+                playingTracks.add(item)
                 startForegroundService(getBody())
                 return@postTask
             }
@@ -27,6 +30,7 @@ class ForegroundServiceController(private val owner: NativeAudio) {
         owner.queueHandler.postTask {
             val item = playingTracks.firstOrNull { predicate(it, track) } ?: return@postTask
             if (item.count == 1) {
+                logPlayedEvent(item)
                 playingTracks.removeAll { predicate(it, track) }
             } else {
                 item.count -= 1
@@ -76,5 +80,15 @@ class ForegroundServiceController(private val owner: NativeAudio) {
 
     private fun stopForegroundService() {
         NowPlayingService.startCommand(owner.activity, false, "", null)
+    }
+
+    private fun logPlayedEvent(item: NowPlayingItem) {
+        val startPlayingTime = item.timePlayStarted
+        val timePlayed = System.currentTimeMillis() - startPlayingTime
+        val totalSeconds = timePlayed / 1000
+        val minutes = totalSeconds / 60
+        val seconds = totalSeconds % 60
+        val durationString = "$minutes:$seconds"
+//        Toast.makeText(owner.context, "${item.track.name} played ${durationString}", Toast.LENGTH_LONG).show()
     }
 }
