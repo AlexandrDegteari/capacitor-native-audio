@@ -27,17 +27,13 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
 
     fun playQueue(
             jsTracks: List<JSObject>,
-            startIndex: Int,
+            startTrackId: String,
             startTime: Double,
             trailingTimeSeconds: Double,
             timerUpdateInterval: Double,
             volume: Float,
             loop: Boolean,
             callback: () -> Unit) {
-        if (startIndex >= jsTracks.size) {
-            callback()
-            return
-        }
         owner.queueHandler.postTask {
             tracks.clear()
 
@@ -51,7 +47,17 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
             this.loopIndex = -1
 
             player?.unload()
-            index = startIndex
+            index = if (startTrackId.isNotEmpty()) {
+                var index = 0
+                for (i in tracks.indices) {
+                    val track = tracks[i]
+                    if (track.assetId == startTrackId) {
+                        index = i
+                        break
+                    }
+                }
+                index
+            } else { 0 }
 
             if (tracks.isEmpty()) {
                 queueState = QueueState.IDLE

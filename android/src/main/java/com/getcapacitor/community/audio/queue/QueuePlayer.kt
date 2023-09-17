@@ -146,7 +146,8 @@ class QueuePlayer(
         if (unloaded) {
             return
         }
-        owner.notifyPlaying(currentTime, duration, queueController.id, queueController.index)
+        val id = playing?.assetId ?: return
+        owner.notifyPlaying(currentTime, duration, queueController.id, id, queueController.index)
     }
 
     private fun notifyPause() {

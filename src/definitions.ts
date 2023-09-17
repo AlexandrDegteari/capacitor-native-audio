@@ -20,7 +20,7 @@ export interface NativeAudio {
   playQueue(options: {
     id: string,
     tracks: QueueTrack[],
-    startIndex: number,
+    startTrackId: string,
     startTime: number,
     trailingTime: number,
     timerUpdateInterval: number,
