@@ -1,5 +1,7 @@
 package com.getcapacitor.community.audio.service
 
+import android.app.Activity
+import android.content.Intent
 import android.widget.Toast
 import com.getcapacitor.community.audio.NativeAudio
 import com.getcapacitor.community.audio.queue.QueueTrack
@@ -20,6 +22,7 @@ class ForegroundServiceController(private val owner: NativeAudio) {
                 item.timePlayStarted = System.currentTimeMillis()
                 playingTracks.add(item)
                 startForegroundService(getBody())
+                logStartedEvent(item, owner.activity)
                 return@postTask
             }
             item.count += 1
@@ -30,7 +33,7 @@ class ForegroundServiceController(private val owner: NativeAudio) {
         owner.queueHandler.postTask {
             val item = playingTracks.firstOrNull { predicate(it, track) } ?: return@postTask
             if (item.count == 1) {
-                logPlayedEvent(item)
+                logCompletedEvent(item, owner.activity)
                 playingTracks.removeAll { predicate(it, track) }
             } else {
                 item.count -= 1
@@ -82,13 +85,23 @@ class ForegroundServiceController(private val owner: NativeAudio) {
         NowPlayingService.startCommand(owner.activity, false, "", null)
     }
 
-    private fun logPlayedEvent(item: NowPlayingItem) {
+    private fun logCompletedEvent(item: NowPlayingItem, activity: Activity) {
         val startPlayingTime = item.timePlayStarted
         val timePlayed = System.currentTimeMillis() - startPlayingTime
-        val totalSeconds = timePlayed / 1000
-        val minutes = totalSeconds / 60
-        val seconds = totalSeconds % 60
-        val durationString = "$minutes:$seconds"
-//        Toast.makeText(owner.context, "${item.track.name} played ${durationString}", Toast.LENGTH_LONG).show()
+        val totalSeconds = (timePlayed / 1000).toString()
+        val intent = Intent(activity.packageName + "." + FirebaseEventConstants.EVENT_TRACK_COMPLETED)
+        intent.putExtra(FirebaseEventConstants.KEY_TRACK_ID, item.track.id)
+        intent.putExtra(FirebaseEventConstants.KEY_TRACK_NAME, item.track.name)
+        intent.putExtra(FirebaseEventConstants.KEY_PLAYTIME_SECONDS, totalSeconds)
+        intent.putExtra("event", FirebaseEventConstants.EVENT_TRACK_COMPLETED)
+        activity.sendBroadcast(intent)
+    }
+
+    private fun logStartedEvent(item: NowPlayingItem, activity: Activity) {
+        val intent = Intent(activity.packageName + "." + FirebaseEventConstants.EVENT_TRACK_STARTED)
+        intent.putExtra(FirebaseEventConstants.KEY_TRACK_ID, item.track.id)
+        intent.putExtra(FirebaseEventConstants.KEY_TRACK_NAME, item.track.name)
+        intent.putExtra("event", FirebaseEventConstants.EVENT_TRACK_STARTED)
+        activity.sendBroadcast(intent)
     }
 }

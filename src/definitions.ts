@@ -61,6 +61,7 @@ export interface PreloadOptions {
 }
 
 export interface QueueTrack {
+  id: string;
   url: string;
   name: string;
   isMusic: boolean;

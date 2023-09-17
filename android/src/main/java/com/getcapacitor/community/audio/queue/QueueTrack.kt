@@ -2,13 +2,20 @@ package com.getcapacitor.community.audio.queue
 
 import org.json.JSONObject
 
-class QueueTrack(val url: String, val name: String, val isMusic: Boolean) {
+class QueueTrack(val id: String, val url: String, val name: String, val isMusic: Boolean) {
     val assetId: String
         get() {
             return url
         }
 
     constructor(jsObject: JSONObject) : this(
+        id = kotlin.run {
+            val key = "id"
+            if (jsObject.has(key)) {
+                return@run jsObject.getString(key) ?: ""
+            }
+            return@run ""
+        },
         url = kotlin.run {
             val key = "url"
             if (jsObject.has(key)) {
