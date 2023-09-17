@@ -200,6 +200,264 @@
         "docs": "",
         "complexTypes": [],
         "slug": "isplaying"
+      },
+      {
+        "name": "playQueue",
+        "signature": "(options: { id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "QueueTrack"
+        ],
+        "slug": "playqueue"
+      },
+      {
+        "name": "pauseQueue",
+        "signature": "(options: { id: string; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "pausequeue"
+      },
+      {
+        "name": "resumeQueue",
+        "signature": "(options: { id: string; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "resumequeue"
+      },
+      {
+        "name": "isQueuePlaying",
+        "signature": "(options: { id: string; }) => Promise<{ isQueuePlaying: boolean; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; }"
+          }
+        ],
+        "returns": "Promise<{ isQueuePlaying: boolean; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "isqueueplaying"
+      },
+      {
+        "name": "isQueuePaused",
+        "signature": "(options: { id: string; }) => Promise<{ isQueuePaused: boolean; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; }"
+          }
+        ],
+        "returns": "Promise<{ isQueuePaused: boolean; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "isqueuepaused"
+      },
+      {
+        "name": "seekQueue",
+        "signature": "(options: { id: string; time: number; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; time: number; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "seekqueue"
+      },
+      {
+        "name": "playNextQueueTrack",
+        "signature": "(id: string) => Promise<void>",
+        "parameters": [
+          {
+            "name": "id",
+            "docs": "",
+            "type": "string"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "playnextqueuetrack"
+      },
+      {
+        "name": "playPreviousQueueTrack",
+        "signature": "(id: string) => Promise<void>",
+        "parameters": [
+          {
+            "name": "id",
+            "docs": "",
+            "type": "string"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "playpreviousqueuetrack"
+      },
+      {
+        "name": "getQueueTrackCurrentTime",
+        "signature": "(id: string) => Promise<number>",
+        "parameters": [
+          {
+            "name": "id",
+            "docs": "",
+            "type": "string"
+          }
+        ],
+        "returns": "Promise<number>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "getqueuetrackcurrenttime"
+      },
+      {
+        "name": "getQueuePlayingIndex",
+        "signature": "(options: { id: string; }) => Promise<number>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; }"
+          }
+        ],
+        "returns": "Promise<number>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "getqueueplayingindex"
+      },
+      {
+        "name": "setQueueLoopIndex",
+        "signature": "(options: { id: string; index: number; set: boolean; }) => Promise<number>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; index: number; set: boolean; }"
+          }
+        ],
+        "returns": "Promise<number>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "setqueueloopindex"
+      },
+      {
+        "name": "setQueueVolume",
+        "signature": "(options: { id: string; volume: number; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; volume: number; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "setqueuevolume"
+      },
+      {
+        "name": "queueHasTrackWith",
+        "signature": "(options: { id: string; url: string; }) => Promise<{ has: boolean; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; url: string; }"
+          }
+        ],
+        "returns": "Promise<{ has: boolean; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "queuehastrackwith"
+      },
+      {
+        "name": "unloadQueue",
+        "signature": "(options: { id: string; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "unloadqueue"
+      },
+      {
+        "name": "setSleepTimer",
+        "signature": "(options: { time: number; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ time: number; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "setsleeptimer"
+      },
+      {
+        "name": "cancelSleepTimer",
+        "signature": "(options: {}) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{}"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "cancelsleeptimer"
       }
     ],
     "properties": []
@@ -269,6 +527,43 @@
           "docs": "",
           "complexTypes": [],
           "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
+      "name": "QueueTrack",
+      "slug": "queuetrack",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "id",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "url",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "isMusic",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "boolean"
         }
       ]
     }

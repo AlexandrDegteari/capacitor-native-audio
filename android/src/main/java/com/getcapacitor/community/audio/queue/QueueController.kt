@@ -34,6 +34,10 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
             volume: Float,
             loop: Boolean,
             callback: () -> Unit) {
+        if (startIndex >= jsTracks.size) {
+            callback()
+            return
+        }
         owner.queueHandler.postTask {
             tracks.clear()
 

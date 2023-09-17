@@ -370,6 +370,226 @@ isPlaying(options: { assetId: string; }) => Promise<{ isPlaying: boolean; }>
 --------------------
 
 
+### playQueue(...)
+
+```typescript
+playQueue(options: { id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }) => Promise<void>
+```
+
+| Param         | Type                                                                                                                                                                                          |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`options`** | <code>{ id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }</code> |
+
+--------------------
+
+
+### pauseQueue(...)
+
+```typescript
+pauseQueue(options: { id: string; }) => Promise<void>
+```
+
+| Param         | Type                         |
+| ------------- | ---------------------------- |
+| **`options`** | <code>{ id: string; }</code> |
+
+--------------------
+
+
+### resumeQueue(...)
+
+```typescript
+resumeQueue(options: { id: string; }) => Promise<void>
+```
+
+| Param         | Type                         |
+| ------------- | ---------------------------- |
+| **`options`** | <code>{ id: string; }</code> |
+
+--------------------
+
+
+### isQueuePlaying(...)
+
+```typescript
+isQueuePlaying(options: { id: string; }) => Promise<{ isQueuePlaying: boolean; }>
+```
+
+| Param         | Type                         |
+| ------------- | ---------------------------- |
+| **`options`** | <code>{ id: string; }</code> |
+
+**Returns:** <code>Promise&lt;{ isQueuePlaying: boolean; }&gt;</code>
+
+--------------------
+
+
+### isQueuePaused(...)
+
+```typescript
+isQueuePaused(options: { id: string; }) => Promise<{ isQueuePaused: boolean; }>
+```
+
+| Param         | Type                         |
+| ------------- | ---------------------------- |
+| **`options`** | <code>{ id: string; }</code> |
+
+**Returns:** <code>Promise&lt;{ isQueuePaused: boolean; }&gt;</code>
+
+--------------------
+
+
+### seekQueue(...)
+
+```typescript
+seekQueue(options: { id: string; time: number; }) => Promise<void>
+```
+
+| Param         | Type                                       |
+| ------------- | ------------------------------------------ |
+| **`options`** | <code>{ id: string; time: number; }</code> |
+
+--------------------
+
+
+### playNextQueueTrack(...)
+
+```typescript
+playNextQueueTrack(id: string) => Promise<void>
+```
+
+| Param    | Type                |
+| -------- | ------------------- |
+| **`id`** | <code>string</code> |
+
+--------------------
+
+
+### playPreviousQueueTrack(...)
+
+```typescript
+playPreviousQueueTrack(id: string) => Promise<void>
+```
+
+| Param    | Type                |
+| -------- | ------------------- |
+| **`id`** | <code>string</code> |
+
+--------------------
+
+
+### getQueueTrackCurrentTime(...)
+
+```typescript
+getQueueTrackCurrentTime(id: string) => Promise<number>
+```
+
+| Param    | Type                |
+| -------- | ------------------- |
+| **`id`** | <code>string</code> |
+
+**Returns:** <code>Promise&lt;number&gt;</code>
+
+--------------------
+
+
+### getQueuePlayingIndex(...)
+
+```typescript
+getQueuePlayingIndex(options: { id: string; }) => Promise<number>
+```
+
+| Param         | Type                         |
+| ------------- | ---------------------------- |
+| **`options`** | <code>{ id: string; }</code> |
+
+**Returns:** <code>Promise&lt;number&gt;</code>
+
+--------------------
+
+
+### setQueueLoopIndex(...)
+
+```typescript
+setQueueLoopIndex(options: { id: string; index: number; set: boolean; }) => Promise<number>
+```
+
+| Param         | Type                                                      |
+| ------------- | --------------------------------------------------------- |
+| **`options`** | <code>{ id: string; index: number; set: boolean; }</code> |
+
+**Returns:** <code>Promise&lt;number&gt;</code>
+
+--------------------
+
+
+### setQueueVolume(...)
+
+```typescript
+setQueueVolume(options: { id: string; volume: number; }) => Promise<void>
+```
+
+| Param         | Type                                         |
+| ------------- | -------------------------------------------- |
+| **`options`** | <code>{ id: string; volume: number; }</code> |
+
+--------------------
+
+
+### queueHasTrackWith(...)
+
+```typescript
+queueHasTrackWith(options: { id: string; url: string; }) => Promise<{ has: boolean; }>
+```
+
+| Param         | Type                                      |
+| ------------- | ----------------------------------------- |
+| **`options`** | <code>{ id: string; url: string; }</code> |
+
+**Returns:** <code>Promise&lt;{ has: boolean; }&gt;</code>
+
+--------------------
+
+
+### unloadQueue(...)
+
+```typescript
+unloadQueue(options: { id: string; }) => Promise<void>
+```
+
+| Param         | Type                         |
+| ------------- | ---------------------------- |
+| **`options`** | <code>{ id: string; }</code> |
+
+--------------------
+
+
+### setSleepTimer(...)
+
+```typescript
+setSleepTimer(options: { time: number; }) => Promise<void>
+```
+
+| Param         | Type                           |
+| ------------- | ------------------------------ |
+| **`options`** | <code>{ time: number; }</code> |
+
+--------------------
+
+
+### cancelSleepTimer(...)
+
+```typescript
+cancelSleepTimer(options: {}) => Promise<void>
+```
+
+| Param         | Type            |
+| ------------- | --------------- |
+| **`options`** | <code>{}</code> |
+
+--------------------
+
+
 ### Interfaces
 
 
@@ -390,5 +610,15 @@ isPlaying(options: { assetId: string; }) => Promise<{ isPlaying: boolean; }>
 | **`volume`**          | <code>number</code>  |
 | **`audioChannelNum`** | <code>number</code>  |
 | **`isUrl`**           | <code>boolean</code> |
+
+
+#### QueueTrack
+
+| Prop          | Type                 |
+| ------------- | -------------------- |
+| **`id`**      | <code>string</code>  |
+| **`url`**     | <code>string</code>  |
+| **`name`**    | <code>string</code>  |
+| **`isMusic`** | <code>boolean</code> |
 
 </docgen-api>

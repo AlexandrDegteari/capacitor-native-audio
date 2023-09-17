@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fa408562-d8f3-475f-b767-435cb84d3db3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/docs.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/esm/definitions.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dist/esm/definitions.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/esm/web.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dist/esm/web.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/esm/web.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/esm/web.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/esm/web.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/esm/web.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/plugin.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/plugin.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/plugin.cjs.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/plugin.cjs.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/plugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/plugin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/plugin.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/plugin.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/web.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Oh0XFs3NzKESPbfK5N1hcQBgE0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/degtearialexandr/Projects/my-npm-plugins/capacitor-native-audio&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/degtearialexandr/Projects/my-npm-plugins/capacitor-native-audio/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ssh.settings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/degtearialexandr/Projects/my-npm-plugins/capacitor-native-audio/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ios/Plugin" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="capacitor-native-audio" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="capacitor-native-audio" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fa408562-d8f3-475f-b767-435cb84d3db3" name="Changes" comment="" />
+      <created>1681997543471</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681997543471</updated>
+      <workItem from="1681997544654" duration="1412000" />
+      <workItem from="1682088797436" duration="967000" />
+      <workItem from="1694896989848" duration="1082000" />
+      <workItem from="1694901247022" duration="771000" />
+    </task>
+    <task id="LOCAL-00001" summary="fixed player android, ios">
+      <created>1681998022242</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681998022242</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fixed player android, ios">
+      <created>1681998347987</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681998347987</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fixed player android, ios">
+      <created>1682088820994</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682088820994</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fixed player android, ios" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed player android, ios" />
+  </component>
+</project>

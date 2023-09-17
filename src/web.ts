@@ -1,8 +1,9 @@
 import { WebPlugin } from '@capacitor/core';
+
 import { AudioAsset } from './audio-asset';
 import type {
   ConfigureOptions,
-  PreloadOptions
+  PreloadOptions, QueueTrack
 } from './definitions';
 import { NativeAudio } from './definitions';
 
@@ -16,6 +17,11 @@ export class NativeAudioWeb extends WebPlugin implements NativeAudio {
       platforms: ['web'],
     });
   }
+
+  getQueuePlayingIndex(options: { id: string; }): Promise<number> {
+    options.id
+        throw new Error('Method not implemented.');
+    }
 
   async resume(options: { assetId: string; }): Promise<void> {
     const audio: HTMLAudioElement = this.getAudioAsset(options.assetId).audio;
@@ -111,9 +117,6 @@ export class NativeAudioWeb extends WebPlugin implements NativeAudio {
     return { isPlaying: !audio.paused };
   }
 
-  async getList(): Promise<{ list: string; }> {
-    return { list: channels};
-  }
 
   private getAudioAsset(assetId: string): AudioAsset {
     this.checkAssetId(assetId);
@@ -133,6 +136,84 @@ export class NativeAudioWeb extends WebPlugin implements NativeAudio {
     if (!assetId?.length) {
       throw 'no assetId provided';
     }
+  }
+
+  cancelSleepTimer(): Promise<void> {
+    return Promise.resolve(undefined);
+  }
+
+  getCurrentQueueIndex(): Promise<number> {
+    return Promise.resolve(0);
+  }
+
+  getQueueTrackCurrentTime(id: string): Promise<number> {
+    console.log(id)
+    return Promise.resolve(0);
+  }
+
+  isQueuePaused(options: { id: string }): Promise<{ isQueuePaused: boolean }> {
+    options.id
+    return Promise.resolve({isQueuePaused: false});
+  }
+
+  isQueuePlaying(options: { id: string }): Promise<{ isQueuePlaying: boolean }> {
+    options.id
+    return Promise.resolve({isQueuePlaying: false});
+  }
+
+  pauseQueue(options: { id: string }): Promise<void> {
+    options.id
+    return Promise.resolve(undefined);
+  }
+
+  playNextQueueTrack(id: string): Promise<void> {
+    console.log(id)
+    return Promise.resolve(undefined);
+  }
+
+  playPreviousQueueTrack(id: string): Promise<void> {
+    console.log(id)
+    return Promise.resolve(undefined);
+  }
+
+  playQueue(options: { id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean }): Promise<void> {
+    options.id
+    return Promise.resolve(undefined);
+  }
+
+  queueHasTrackWith(options: { id: string; url: string }): Promise<{ has: boolean }> {
+    options.id
+    return Promise.resolve({has: false});
+  }
+
+  resumeQueue(options: { id: string }): Promise<void> {
+    options.id
+    return Promise.resolve(undefined);
+  }
+
+  seekQueue(options: { id: string; time: number }): Promise<void> {
+    options.id
+    return Promise.resolve(undefined);
+  }
+
+  setQueueLoopIndex(options: { id: string; index: number; set: boolean }): Promise<number> {
+    options.id
+    return Promise.resolve(0);
+  }
+
+  setQueueVolume(options: { id: string; volume: number }): Promise<void> {
+    options.id
+    return Promise.resolve(undefined);
+  }
+
+  setSleepTimer(options: { time: number }): Promise<void> {
+    options.time
+    return Promise.resolve(undefined);
+  }
+
+  unloadQueue(options: { id: string }): Promise<void> {
+    options.id
+    return Promise.resolve(undefined);
   }
 }
 

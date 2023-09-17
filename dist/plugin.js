@@ -18,6 +18,10 @@ var capacitorApp = (function (exports, core) {
                 platforms: ['web'],
             });
         }
+        getQueuePlayingIndex(options) {
+            options.id;
+            throw new Error('Method not implemented.');
+        }
         async resume(options) {
             const audio = this.getAudioAsset(options.assetId).audio;
             if (audio.paused) {
@@ -116,6 +120,68 @@ var capacitorApp = (function (exports, core) {
                 throw 'no assetId provided';
             }
         }
+        cancelSleepTimer() {
+            return Promise.resolve(undefined);
+        }
+        getCurrentQueueIndex() {
+            return Promise.resolve(0);
+        }
+        getQueueTrackCurrentTime(id) {
+            console.log(id);
+            return Promise.resolve(0);
+        }
+        isQueuePaused(options) {
+            options.id;
+            return Promise.resolve({ isQueuePaused: false });
+        }
+        isQueuePlaying(options) {
+            options.id;
+            return Promise.resolve({ isQueuePlaying: false });
+        }
+        pauseQueue(options) {
+            options.id;
+            return Promise.resolve(undefined);
+        }
+        playNextQueueTrack(id) {
+            console.log(id);
+            return Promise.resolve(undefined);
+        }
+        playPreviousQueueTrack(id) {
+            console.log(id);
+            return Promise.resolve(undefined);
+        }
+        playQueue(options) {
+            options.id;
+            return Promise.resolve(undefined);
+        }
+        queueHasTrackWith(options) {
+            options.id;
+            return Promise.resolve({ has: false });
+        }
+        resumeQueue(options) {
+            options.id;
+            return Promise.resolve(undefined);
+        }
+        seekQueue(options) {
+            options.id;
+            return Promise.resolve(undefined);
+        }
+        setQueueLoopIndex(options) {
+            options.id;
+            return Promise.resolve(0);
+        }
+        setQueueVolume(options) {
+            options.id;
+            return Promise.resolve(undefined);
+        }
+        setSleepTimer(options) {
+            options.time;
+            return Promise.resolve(undefined);
+        }
+        unloadQueue(options) {
+            options.id;
+            return Promise.resolve(undefined);
+        }
     }
     NativeAudioWeb.FILE_LOCATION = 'assets/sounds';
     NativeAudioWeb.AUDIO_ASSET_BY_ASSET_ID = new Map();
@@ -133,5 +199,5 @@ var capacitorApp = (function (exports, core) {
 
     return exports;
 
-}({}, capacitorExports));
+})({}, capacitorExports);
 //# sourceMappingURL=plugin.js.map
