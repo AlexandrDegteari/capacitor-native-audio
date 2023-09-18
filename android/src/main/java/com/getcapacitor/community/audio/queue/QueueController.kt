@@ -74,13 +74,13 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
     }
 
     fun updateQueue(jsTracks: List<JSObject>, callback: () -> Unit) {
-        if (jsTracks.isEmpty()) {
-            notifyStop(player?.getPlayingTrackId() ?: "")
-            unload()
-            callback()
-            return
-        }
         owner.queueHandler.postTask {
+            if (jsTracks.isEmpty()) {
+                notifyStop(player?.getPlayingTrackId() ?: "")
+                unload()
+                callback()
+                return@postTask
+            }
             val newTracks = mutableListOf<QueueTrack>()
             val currentPlayingTrackId = player?.getPlayingTrackId() ?: ""
             var indexToSet = -1

@@ -51,7 +51,7 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
             }
             val filter = IntentFilter()
             filter.addAction(getBridge().activity.packageName + ".stop_all")
-            getBridge().activity.registerReceiver(object: BroadcastReceiver() {
+            getBridge().activity.registerReceiver(object : BroadcastReceiver() {
                 override fun onReceive(p0: Context?, p1: Intent?) {
                     Log.d(TAG, "on receive stop-all")
                     for ((_, queueController) in queueControllers) {
@@ -605,21 +605,23 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
             sleepTimer = Timer()
             sleepTimer!!.schedule(object : TimerTask() {
                 override fun run() {
-                    for ((_, queueController) in queueControllers) {
-                        queueController.unload()
-                    }
-                    queueControllers.clear()
-                    try {
-                        if (audioAssetList != null) {
-                            for (key in audioAssetList!!.keys) {
-                                val asset = audioAssetList!![key]
-                                asset?.unload()
-                            }
-                            audioAssetList!!.clear()
+                    queueHandler.postTask {
+                        for ((_, queueController) in queueControllers) {
+                            queueController.unload()
                         }
-                        queueHandler.postTask { notifyListeners(QueueController.EVENT_ALL_TRACKS_STOP, JSObject()) }
-                    } catch (e: Exception) {
-                        Log.d("ex", e.message!!)
+                        queueControllers.clear()
+                        try {
+                            if (audioAssetList != null) {
+                                for (key in audioAssetList!!.keys) {
+                                    val asset = audioAssetList!![key]
+                                    asset?.unload()
+                                }
+                                audioAssetList!!.clear()
+                            }
+                            queueHandler.postTask { notifyListeners(QueueController.EVENT_ALL_TRACKS_STOP, JSObject()) }
+                        } catch (e: Exception) {
+                            Log.d("ex", e.message!!)
+                        }
                     }
                 }
             }, (time * 1000).toLong())
