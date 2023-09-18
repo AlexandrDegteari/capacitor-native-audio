@@ -74,7 +74,7 @@ export interface NativeAudio {
     playPreviousQueueTrack(id: string): Promise<void>;
     getQueueTrackCurrentTime(id: string): Promise<number>;
     getQueuePlayingIndex(options: {
-        id: string;
+        index: string;
     }): Promise<number>;
     setQueueLoopIndex(options: {
         id: string;
