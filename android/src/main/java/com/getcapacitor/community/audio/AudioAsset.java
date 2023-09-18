@@ -21,8 +21,8 @@ public class AudioAsset {
     public final String assetId;
     final NativeAudio owner;
     final QueueController queueController;
-    final QueuePlayer queuePlayer;
-    final QueueTrack queueTrack;
+    public final QueuePlayer queuePlayer;
+    public final QueueTrack queueTrack;
     private boolean onPause = false;
 
     public AudioAsset(

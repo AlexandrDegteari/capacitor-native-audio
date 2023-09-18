@@ -146,7 +146,7 @@ class QueuePlayer(
         if (unloaded) {
             return
         }
-        val id = playing?.assetId ?: return
+        val id = playing?.queueTrack?.id ?: return
         owner.notifyPlaying(currentTime, duration, queueController.id, id, queueController.index)
     }
 
@@ -154,7 +154,8 @@ class QueuePlayer(
         if (unloaded) {
             return
         }
-        owner.notifyPause(currentTime, duration, queueController.id, queueController.index)
+        val id = playing?.queueTrack?.id ?: return
+        owner.notifyPause(currentTime, duration, queueController.id, id, queueController.index)
     }
 
     fun fadeIn(audioAsset: AudioAsset) {
@@ -221,6 +222,10 @@ class QueuePlayer(
         if (!isPlaying && playing?.isPaused == true) {
 
         }
+    }
+
+    fun getPlayingTrackId(): String? {
+        return playing?.queueTrack?.id
     }
 
     private fun tryMoveToNext() {

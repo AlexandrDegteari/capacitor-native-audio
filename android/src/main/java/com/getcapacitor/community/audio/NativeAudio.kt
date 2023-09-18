@@ -40,10 +40,6 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
     init {
         queueHandler.start()
         queueHandler.prepareHandler()
-
-
-
-//        queueController = QueueController(this)
     }
 
     override fun load() {
@@ -61,6 +57,7 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
                     for ((_, queueController) in queueControllers) {
                         queueController.unload()
                     }
+                    queueControllers.clear()
                     queueHandler.postTask { notifyListeners(QueueController.EVENT_ALL_TRACKS_STOP, JSObject()) }
 
                 }
@@ -335,7 +332,7 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
         try {
             val jsTracks = call.getArray("tracks")
             val queueId = call.getString("id")
-            val startTrackId = call.getString("startTrackId") ?: ""
+            val index = call.getInt("startIndex", 0)!!
             val time = call.getDouble("startTime", 0.0)
             val trailingTimeSeconds = call.getDouble("trailingTime", 0.0)
             val timerUpdateInterval = call.getDouble("timerUpdateInterval", 1.0)
@@ -347,7 +344,7 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
                 queueControllers[queueId] = queueController
                 return@run queueController
             }
-            current.playQueue(jsTracks.toList(), startTrackId, time!!, trailingTimeSeconds!!, timerUpdateInterval!!, volume, loop) {
+            current.playQueue(jsTracks.toList(), index, time!!, trailingTimeSeconds!!, timerUpdateInterval!!, volume, loop) {
                 call.resolve()
             }
         } catch (ex: Exception) {
@@ -492,6 +489,21 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
     }
 
     @PluginMethod
+    fun getQueuePlayingTrackId(call: PluginCall) {
+        try {
+            val queueId = call.getString("id")
+            if (queueId == null) {
+                call.reject("no index")
+                return
+            }
+            val trackId = queueControllers[queueId]?.player?.getPlayingTrackId()
+            call.resolve(JSObject().put("trackId", trackId))
+        } catch (ex: Exception) {
+            call.reject(ex.message)
+        }
+    }
+
+    @PluginMethod
     fun setQueueLoopIndex(call: PluginCall) {
         try {
             val loopIndex = call.getInt("index", -1)!!
@@ -574,8 +586,9 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
             sleepTimer!!.schedule(object : TimerTask() {
                 override fun run() {
                     for ((_, queueController) in queueControllers) {
-                        queueController.pause { paused: Boolean? -> null }
+                        queueController.unload()
                     }
+                    queueControllers.clear()
                     try {
                         if (audioAssetList != null) {
                             for (key in audioAssetList!!.keys) {
@@ -631,11 +644,12 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
         notifyEventListeners("track-playing", jsObject)
     }
 
-    fun notifyPause(time: Double, duration: Double, queueId: String, index: Int) {
+    fun notifyPause(time: Double, duration: Double, queueId: String, trackId: String, index: Int) {
         val jsObject = JSObject()
         jsObject.put("time", time)
         jsObject.put("duration", duration)
         jsObject.put("id", queueId)
+        jsObject.put("trackId", trackId)
         jsObject.put("index", index)
         notifyEventListeners("track-pause", jsObject)
     }

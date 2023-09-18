@@ -17,7 +17,7 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
     var index: Int = 0
     private var queueState: QueueState = QueueState.IDLE
     private var looping = false
-    private var player: QueuePlayer? = null
+    var player: QueuePlayer? = null
     private var loopIndex: Int = -1
 
     init {
@@ -26,14 +26,18 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
 
 
     fun playQueue(
-            jsTracks: List<JSObject>,
-            startTrackId: String,
-            startTime: Double,
-            trailingTimeSeconds: Double,
-            timerUpdateInterval: Double,
-            volume: Float,
-            loop: Boolean,
-            callback: () -> Unit) {
+        jsTracks: List<JSObject>,
+        startIndex: Int,
+        startTime: Double,
+        trailingTimeSeconds: Double,
+        timerUpdateInterval: Double,
+        volume: Float,
+        loop: Boolean,
+        callback: () -> Unit) {
+        if (startIndex >= jsTracks.size) {
+            callback()
+            return
+        }
         owner.queueHandler.postTask {
             tracks.clear()
 
@@ -47,17 +51,7 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
             this.loopIndex = -1
 
             player?.unload()
-            index = if (startTrackId.isNotEmpty()) {
-                var index = 0
-                for (i in tracks.indices) {
-                    val track = tracks[i]
-                    if (track.assetId == startTrackId) {
-                        index = i
-                        break
-                    }
-                }
-                index
-            } else { 0 }
+            index = startIndex
 
             if (tracks.isEmpty()) {
                 queueState = QueueState.IDLE
@@ -65,11 +59,11 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
             }
 
             player = QueuePlayer(
-                    owner = this.owner,
-                    queueController = this,
-                    trailingTimeSeconds = trailingTimeSeconds,
-                    timerUpdateInterval = timerUpdateInterval,
-                    useFade = useFade)
+                owner = this.owner,
+                queueController = this,
+                trailingTimeSeconds = trailingTimeSeconds,
+                timerUpdateInterval = timerUpdateInterval,
+                useFade = useFade)
             player!!.setVolume(volume)
 
             var track = tracks[index]
