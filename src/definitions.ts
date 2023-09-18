@@ -40,7 +40,9 @@ export interface NativeAudio {
   getQueuePlayingTrackId(options: { id: string }): Promise<string>;
   setQueueLoopIndex(options: { id: string, index: number, set: boolean }): Promise<number>;
   setQueueVolume(options: { id: string, volume: number} ): Promise<void>;
+  updateQueue(options: { id: string, tracks: QueueTrack[] }): Promise<void>;
   queueHasTrackWith(options: { id: string, url: string } ): Promise<{ has: boolean }>;
+
   unloadQueue(options: { id: string }): Promise<void>;
 
 
@@ -66,4 +68,5 @@ export interface QueueTrack {
   url: string;
   name: string;
   isMusic: boolean;
+  forcePlay: boolean;
 }

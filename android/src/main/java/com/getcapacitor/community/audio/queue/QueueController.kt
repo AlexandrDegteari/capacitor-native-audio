@@ -4,6 +4,7 @@ import com.getcapacitor.JSObject
 import com.getcapacitor.community.audio.NativeAudio
 import com.getcapacitor.community.audio.service.ForegroundServiceController
 import org.json.JSONObject
+import java.util.Queue
 
 class QueueController(private val owner: NativeAudio, val id: String, val useFade: Boolean) {
 
@@ -69,6 +70,42 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
             var track = tracks[index]
             player!!.playTrack(track, startTime)
             callback()
+        }
+    }
+
+    fun updateQueue(jsTracks: List<JSObject>, callback: () -> Unit) {
+        if (jsTracks.isEmpty()) {
+            notifyStop(player?.getPlayingTrackId() ?: "")
+            unload()
+            callback()
+            return
+        }
+        owner.queueHandler.postTask {
+            val newTracks = mutableListOf<QueueTrack>()
+            val currentPlayingTrackId = player?.getPlayingTrackId() ?: ""
+            var indexToSet = -1
+            for (i in jsTracks.indices) {
+                val jsTrack = jsTracks[i] as? JSONObject ?: continue
+                val track = QueueTrack(jsTrack)
+                newTracks.add(track)
+                if (track.id != currentPlayingTrackId) {
+                    continue
+                }
+                indexToSet = i
+            }
+            tracks.clear()
+            tracks.addAll(newTracks)
+
+            if (indexToSet >= 0) {
+                this.index = indexToSet
+                callback()
+                return@postTask
+            }
+
+            if (index >= tracks.size) {
+                index = tracks.size - 1
+                callback()
+            }
         }
     }
 
@@ -190,12 +227,14 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
             return true
         }
         if (index == tracks.size - 1) {
+            maybeRemoveForcePlayTrackOnCurrentIndex(true)
             index = 0
             if (looping) {
                 return true
             }
             return false
         }
+        maybeRemoveForcePlayTrackOnCurrentIndex(true)
         index += 1
         return true
     }
@@ -203,13 +242,35 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
     private fun manageIndexToPrevious() : Boolean {
         if (index == 0) {
             if (looping) {
+                maybeRemoveForcePlayTrackOnCurrentIndex(false)
                 index = tracks.size - 1
                 return true
             }
             return false
         }
+        maybeRemoveForcePlayTrackOnCurrentIndex(false)
         index -= 1
         return true
+    }
+
+    private fun maybeRemoveForcePlayTrackOnCurrentIndex(toNext: Boolean) {
+        if (tracks.size == 1) {
+            return
+        }
+        val currentTrack = tracks[index]
+        if (!currentTrack.forcePlay) {
+            return
+        }
+        tracks.removeAt(index)
+        if (toNext) {
+            if (index + 1 < tracks.size) {
+                index += 1
+            } else {
+                if (looping) {
+                    index = 0
+                }
+            }
+        }
     }
 
     fun requestNextTrack(callback: (QueueTrack?) -> Unit) {
@@ -296,7 +357,8 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
 
     fun notifyStop(assetId: String) {
         val jsObject = JSObject()
-        jsObject.put("assetId", assetId)
+        jsObject.put("id", id)
+        jsObject.put("trackId", assetId)
         owner.notifyEventListeners(EVENT_TRACK_STOP, jsObject)
     }
 

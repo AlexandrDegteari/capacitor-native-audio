@@ -13,7 +13,7 @@ import androidx.core.app.ServiceCompat
 import com.getcapacitor.community.audio.nativeaudio.R
 
 class NowPlayingService : Service() {
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent == null) {
             return START_NOT_STICKY
         }

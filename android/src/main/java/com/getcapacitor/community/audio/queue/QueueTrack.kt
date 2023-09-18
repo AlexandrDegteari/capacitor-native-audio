@@ -2,7 +2,13 @@ package com.getcapacitor.community.audio.queue
 
 import org.json.JSONObject
 
-class QueueTrack(val id: String, val url: String, val name: String, val isMusic: Boolean) {
+class QueueTrack(
+    val id: String,
+    val url: String,
+    val name: String,
+    val isMusic: Boolean,
+    val forcePlay: Boolean
+) {
     val assetId: String
         get() {
             return url
@@ -36,6 +42,13 @@ class QueueTrack(val id: String, val url: String, val name: String, val isMusic:
                 return@run jsObject.getBoolean(key)
             }
             return@run false
-        }
+        },
+        forcePlay = kotlin.run {
+            val key = "forcePlay"
+            if (jsObject.has(key)) {
+                return@run jsObject.getBoolean(key)
+            }
+            return@run false
+        },
     )
 }

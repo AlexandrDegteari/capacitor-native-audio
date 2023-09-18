@@ -552,6 +552,26 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
     }
 
     @PluginMethod
+    fun updateQueue(call: PluginCall) {
+        queueHandler.postTask {
+            try {
+                val queueId = call.getString("id")
+                val jsTracks = call.getArray("tracks")
+                val queue = queueControllers[queueId]
+                if (queue == null) {
+                    call.reject("")
+                    return@postTask
+                }
+                queue.updateQueue(jsTracks = jsTracks.toList()) {
+                    call.resolve()
+                }
+            } catch (ex: Exception) {
+                call.reject(ex.message)
+            }
+        }
+    }
+
+    @PluginMethod
     fun unloadQueue(call: PluginCall) {
         queueHandler.postTask {
             try {
@@ -705,7 +725,7 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
 //                        assetFileDescriptor = am.openFd(fullPath);
 //                    }
 //                }
-                val queueTrack = QueueTrack(audioId ?: "", assetPath!!, assetPath, false)
+                val queueTrack = QueueTrack(audioId ?: "", assetPath!!, assetPath, false, false)
                 val asset = AudioAsset(this, null, null, queueTrack, null, audioChannelNum, volume.toFloat())
                 audioAssetList!![audioId] = asset
                 val status = JSObject()
