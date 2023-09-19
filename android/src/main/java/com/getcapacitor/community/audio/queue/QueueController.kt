@@ -242,6 +242,10 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
     }
 
     private fun manageIndexToPrevious() : Boolean {
+        if (loopIndex >= 0) {
+            index = loopIndex
+            return true
+        }
         if (index == 0) {
             if (looping) {
                 maybeRemoveForcePlayTrackOnCurrentIndex(false)
