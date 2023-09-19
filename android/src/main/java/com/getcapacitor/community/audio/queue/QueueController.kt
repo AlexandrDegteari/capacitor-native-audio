@@ -35,11 +35,11 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
         volume: Float,
         loop: Boolean,
         callback: () -> Unit) {
-        if (startIndex >= jsTracks.size) {
-            callback()
-            return
-        }
         owner.queueHandler.postTask {
+            if (startIndex >= jsTracks.size) {
+                callback()
+                return@postTask
+            }
             tracks.clear()
 
             for (i in jsTracks.indices) {
@@ -227,15 +227,17 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
             return true
         }
         if (index == tracks.size - 1) {
-            maybeRemoveForcePlayTrackOnCurrentIndex(true)
-            index = 0
+            if (!maybeRemoveForcePlayTrackOnCurrentIndex(true)) {
+                index = 0
+            }
             if (looping) {
                 return true
             }
             return false
         }
-        maybeRemoveForcePlayTrackOnCurrentIndex(true)
-        index += 1
+        if (!maybeRemoveForcePlayTrackOnCurrentIndex(true)) {
+            index += 1
+        }
         return true
     }
 
@@ -253,24 +255,27 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
         return true
     }
 
-    private fun maybeRemoveForcePlayTrackOnCurrentIndex(toNext: Boolean) {
+    private fun maybeRemoveForcePlayTrackOnCurrentIndex(toNext: Boolean): Boolean {
         if (tracks.size == 1) {
-            return
+            return false
         }
         val currentTrack = tracks[index]
         if (!currentTrack.forcePlay) {
-            return
+            return false
         }
         tracks.removeAt(index)
         if (toNext) {
             if (index + 1 < tracks.size) {
                 index += 1
+                return true
             } else {
                 if (looping) {
                     index = 0
+                    return true
                 }
             }
         }
+        return false
     }
 
     fun requestNextTrack(callback: (QueueTrack?) -> Unit) {
@@ -281,6 +286,13 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
 
     private fun requestNextTrackInternal() : QueueTrack? {
         if (manageIndexToNext()) {
+            if (tracks.isNotEmpty()) {
+                if (index >= tracks.size) {
+                    index = tracks.size - 1
+                }
+            } else {
+                return null
+            }
             return tracks[index]
         }
         return null
