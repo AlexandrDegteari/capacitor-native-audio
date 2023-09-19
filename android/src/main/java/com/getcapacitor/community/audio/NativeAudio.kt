@@ -471,35 +471,40 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
 
     @PluginMethod
     fun getQueuePlayingIndex(call: PluginCall) {
-        try {
-            val queueId = call.getString("id")
-            if (queueId == null) {
-                call.reject("no index")
-                return
+        queueHandler.postTask {
+            try {
+                val queueId = call.getString("id")
+                if (queueId == null) {
+                    call.reject("no index")
+                    return@postTask
+                }
+                val index = queueControllers[queueId]?.index
+                if (index == null) {
+                    call.resolve(JSObject().put("index", -1))
+                    return@postTask
+                }
+                call.resolve(JSObject().put("index", index))
+            } catch (ex: Exception) {
+                call.reject(ex.message)
             }
-            val index = queueControllers[queueId]?.index
-            if (index == null) {
-                call.resolve(JSObject().put("index", -1))
-                return
-            }
-            call.resolve(JSObject().put("index", index))
-        } catch (ex: Exception) {
-            call.reject(ex.message)
         }
     }
 
     @PluginMethod
     fun getQueuePlayingTrackId(call: PluginCall) {
-        try {
-            val queueId = call.getString("id")
-            if (queueId == null) {
-                call.reject("no index")
-                return
+        queueHandler.postTask {
+            try {
+                val queueId = call.getString("id")
+                if (queueId == null) {
+                    call.reject("no index")
+                    return@postTask
+                }
+
+                val trackId = queueControllers[queueId]?.player?.getPlayingTrackId()
+                call.resolve(JSObject().put("trackId", trackId))
+            } catch (ex: Exception) {
+                call.reject(ex.message)
             }
-            val trackId = queueControllers[queueId]?.player?.getPlayingTrackId()
-            call.resolve(JSObject().put("trackId", trackId))
-        } catch (ex: Exception) {
-            call.reject(ex.message)
         }
     }
 

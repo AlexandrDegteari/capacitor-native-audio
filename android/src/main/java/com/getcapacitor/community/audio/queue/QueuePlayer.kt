@@ -33,7 +33,7 @@ class QueuePlayer(
     }
 
     private fun startPlay(track: QueueTrack, time: Double = 0.0) {
-        playing = AudioAsset(owner, queueController, this, track, null, 1, volume);
+        playing = AudioAsset(owner, queueController, this, track, null, 1, if (useFade) 0.0f else this.volume);
         duration = playing!!.duration
         playing!!.play(time, null)
         currentTime = 0.0
@@ -84,6 +84,8 @@ class QueuePlayer(
         timer = null
         playing?.unload()
         trailing?.unload()
+        playing = null
+        trailing = null
         unloaded = true
     }
 
@@ -120,6 +122,9 @@ class QueuePlayer(
     }
 
     private fun advanceTimer() {
+        if (playing == null) {
+            return
+        }
         duration = playing!!.duration;
         if (currentTime < duration) {
             currentTime = (playing?.currentPosition ?: 0.0)
@@ -144,6 +149,9 @@ class QueuePlayer(
 
     private fun notifyPlaying() {
         if (unloaded) {
+            return
+        }
+        if (playing == null) {
             return
         }
         val id = playing?.queueTrack?.id ?: return

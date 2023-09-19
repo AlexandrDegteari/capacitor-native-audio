@@ -14,6 +14,9 @@ class ForegroundServiceController(private val owner: NativeAudio) {
         nowPlayingItem.track.assetId == track.assetId && nowPlayingItem.track.url == track.url
     }
 
+    private var serviceIsRunning = false
+    private var currentBody = ""
+
     fun playerStartedPlaying(track: QueueTrack) {
         owner.queueHandler.postTask {
             var item = playingTracks.firstOrNull { predicate(it, track) }
@@ -39,7 +42,8 @@ class ForegroundServiceController(private val owner: NativeAudio) {
                 item.count -= 1
             }
             if (playingTracks.isNotEmpty()) {
-                startForegroundService(getBody())
+                val body = getBody()
+                startForegroundService(body)
                 return@postTask
             }
             stopForegroundService()
@@ -78,10 +82,16 @@ class ForegroundServiceController(private val owner: NativeAudio) {
     }
 
     private fun startForegroundService(body: String) {
+        if (currentBody == body && serviceIsRunning) {
+            return
+        }
+        currentBody = body
+        serviceIsRunning = true
         NowPlayingService.startCommand(owner.activity, true, body, if (playingTracks.size > 1) "Stop all" else "Stop");
     }
 
     private fun stopForegroundService() {
+        serviceIsRunning = false
         NowPlayingService.startCommand(owner.activity, false, "", null)
     }
 
