@@ -15,7 +15,6 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
     var playIndex: Int = 0
     var assetId: String = ""
     var initialVolume: NSNumber = 1.0
-    var fadeDelay: NSNumber = 1.0
 
     let FADE_STEP: Float = 0.05
     let FADE_DELAY: Float = 0.08
@@ -36,7 +35,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
         withPath path: String!,
         withChannels channels: NSNumber!,
         withVolume volume: NSNumber!,
-        withFadeDelay delay: NSNumber!
+        useFade: Bool!
     ) {
         
         self.owner = owner
@@ -44,13 +43,12 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
         self.queuePlayer = queuePlayer
         self.assetId = assetId
         self.channels = NSMutableArray.init(capacity: channels as! Int)
-        self.fadeDelay = delay
         super.init()
 
         let pathUrl: NSURL! = NSURL(string: path)
 
         for _ in 0..<channels.intValue {
-            let player: Player! = Player(url: pathUrl as URL)
+            let player: Player! = Player(url: pathUrl as URL, useFade: useFade)
 
             player.avPlayer.volume = volume.floatValue
             self.channels.addObjects(from: [player as Any])
@@ -198,9 +196,24 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
 
 class Player {
     var avPlayer: AVPlayer!
+    var asset: AVAsset!
     var isLoop: Bool = false
 
-    init(url: URL) {
-        avPlayer = AVPlayer(url: url)
+    init(url: URL, useFade: Bool) {
+        asset = AVAsset(url: url)
+        let item = AVPlayerItem(asset: asset)
+        if useFade {
+            let duration = asset.duration
+            let durationInSeconds = CMTimeGetSeconds(duration)
+            let params = AVMutableAudioMixInputParameters(track: asset.tracks.first! as AVAssetTrack)
+            let firstSecond = CMTimeRangeMake(start: CMTimeMakeWithSeconds(0, preferredTimescale: 1000), duration: CMTimeMakeWithSeconds(1.0, preferredTimescale: 1000))
+            let lastSecond = CMTimeRangeMake(start: CMTimeMakeWithSeconds(durationInSeconds - 1.3, preferredTimescale: 1000), duration: CMTimeMakeWithSeconds(1, preferredTimescale: 1000))
+            params.setVolumeRamp(fromStartVolume: 0, toEndVolume: 1, timeRange: firstSecond)
+            params.setVolumeRamp(fromStartVolume: 1, toEndVolume: 0, timeRange: lastSecond)
+            let mix = AVMutableAudioMix()
+            mix.inputParameters = [params]
+            item.audioMix = mix
+        }
+        avPlayer = AVPlayer(playerItem: item)
     }
 }
