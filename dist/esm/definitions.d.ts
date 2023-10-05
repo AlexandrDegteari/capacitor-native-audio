@@ -42,7 +42,7 @@ export interface NativeAudio {
     playQueue(options: {
         id: string;
         tracks: QueueTrack[];
-        startIndex: number;
+        startTrackId: string;
         startTime: number;
         trailingTime: number;
         timerUpdateInterval: number;
@@ -74,8 +74,11 @@ export interface NativeAudio {
     playPreviousQueueTrack(id: string): Promise<void>;
     getQueueTrackCurrentTime(id: string): Promise<number>;
     getQueuePlayingIndex(options: {
-        index: string;
+        id: string;
     }): Promise<number>;
+    getQueuePlayingTrackId(options: {
+        id: string;
+    }): Promise<string>;
     setQueueLoopIndex(options: {
         id: string;
         index: number;
@@ -84,6 +87,10 @@ export interface NativeAudio {
     setQueueVolume(options: {
         id: string;
         volume: number;
+    }): Promise<void>;
+    updateQueue(options: {
+        id: string;
+        tracks: QueueTrack[];
     }): Promise<void>;
     queueHasTrackWith(options: {
         id: string;
@@ -115,4 +122,5 @@ export interface QueueTrack {
     url: string;
     name: string;
     isMusic: boolean;
+    forcePlay: boolean;
 }

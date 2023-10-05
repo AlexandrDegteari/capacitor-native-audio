@@ -150,6 +150,7 @@ var capacitorApp = (function (exports, core) {
             console.log(id);
             return Promise.resolve(undefined);
         }
+        // @ts-ignore
         playQueue(options) {
             options.id;
             return Promise.resolve(undefined);

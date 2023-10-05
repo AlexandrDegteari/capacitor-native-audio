@@ -373,12 +373,12 @@ isPlaying(options: { assetId: string; }) => Promise<{ isPlaying: boolean; }>
 ### playQueue(...)
 
 ```typescript
-playQueue(options: { id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }) => Promise<void>
+playQueue(options: { id: string; tracks: QueueTrack[]; startTrackId: string; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }) => Promise<void>
 ```
 
-| Param         | Type                                                                                                                                                                                          |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`options`** | <code>{ id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }</code> |
+| Param         | Type                                                                                                                                                                                            |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`options`** | <code>{ id: string; tracks: QueueTrack[]; startTrackId: string; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }</code> |
 
 --------------------
 
@@ -508,6 +508,21 @@ getQueuePlayingIndex(options: { id: string; }) => Promise<number>
 --------------------
 
 
+### getQueuePlayingTrackId(...)
+
+```typescript
+getQueuePlayingTrackId(options: { id: string; }) => Promise<string>
+```
+
+| Param         | Type                         |
+| ------------- | ---------------------------- |
+| **`options`** | <code>{ id: string; }</code> |
+
+**Returns:** <code>Promise&lt;string&gt;</code>
+
+--------------------
+
+
 ### setQueueLoopIndex(...)
 
 ```typescript
@@ -532,6 +547,19 @@ setQueueVolume(options: { id: string; volume: number; }) => Promise<void>
 | Param         | Type                                         |
 | ------------- | -------------------------------------------- |
 | **`options`** | <code>{ id: string; volume: number; }</code> |
+
+--------------------
+
+
+### updateQueue(...)
+
+```typescript
+updateQueue(options: { id: string; tracks: QueueTrack[]; }) => Promise<void>
+```
+
+| Param         | Type                                               |
+| ------------- | -------------------------------------------------- |
+| **`options`** | <code>{ id: string; tracks: QueueTrack[]; }</code> |
 
 --------------------
 
@@ -614,11 +642,12 @@ cancelSleepTimer(options: {}) => Promise<void>
 
 #### QueueTrack
 
-| Prop          | Type                 |
-| ------------- | -------------------- |
-| **`id`**      | <code>string</code>  |
-| **`url`**     | <code>string</code>  |
-| **`name`**    | <code>string</code>  |
-| **`isMusic`** | <code>boolean</code> |
+| Prop            | Type                 |
+| --------------- | -------------------- |
+| **`id`**        | <code>string</code>  |
+| **`url`**       | <code>string</code>  |
+| **`name`**      | <code>string</code>  |
+| **`isMusic`**   | <code>boolean</code> |
+| **`forcePlay`** | <code>boolean</code> |
 
 </docgen-api>

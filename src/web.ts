@@ -176,6 +176,7 @@ export class NativeAudioWeb extends WebPlugin implements NativeAudio {
     return Promise.resolve(undefined);
   }
 
+  // @ts-ignore
   playQueue(options: { id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean }): Promise<void> {
     options.id
     return Promise.resolve(undefined);

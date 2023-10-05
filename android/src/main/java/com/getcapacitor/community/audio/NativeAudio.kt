@@ -475,7 +475,7 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
             try {
                 val queueId = call.getString("id")
                 if (queueId == null) {
-                    call.reject("no index")
+                    call.reject("no id")
                     return@postTask
                 }
                 val index = queueControllers[queueId]?.index
@@ -496,7 +496,7 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
             try {
                 val queueId = call.getString("id")
                 if (queueId == null) {
-                    call.reject("no index")
+                    call.reject("no id")
                     return@postTask
                 }
 

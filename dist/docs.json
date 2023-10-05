@@ -203,12 +203,12 @@
       },
       {
         "name": "playQueue",
-        "signature": "(options: { id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }) => Promise<void>",
+        "signature": "(options: { id: string; tracks: QueueTrack[]; startTrackId: string; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }) => Promise<void>",
         "parameters": [
           {
             "name": "options",
             "docs": "",
-            "type": "{ id: string; tracks: QueueTrack[]; startIndex: number; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }"
+            "type": "{ id: string; tracks: QueueTrack[]; startTrackId: string; startTime: number; trailingTime: number; timerUpdateInterval: number; volume: number; useFade: boolean; loop: boolean; }"
           }
         ],
         "returns": "Promise<void>",
@@ -364,6 +364,22 @@
         "slug": "getqueueplayingindex"
       },
       {
+        "name": "getQueuePlayingTrackId",
+        "signature": "(options: { id: string; }) => Promise<string>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; }"
+          }
+        ],
+        "returns": "Promise<string>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [],
+        "slug": "getqueueplayingtrackid"
+      },
+      {
         "name": "setQueueLoopIndex",
         "signature": "(options: { id: string; index: number; set: boolean; }) => Promise<number>",
         "parameters": [
@@ -394,6 +410,24 @@
         "docs": "",
         "complexTypes": [],
         "slug": "setqueuevolume"
+      },
+      {
+        "name": "updateQueue",
+        "signature": "(options: { id: string; tracks: QueueTrack[]; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ id: string; tracks: QueueTrack[]; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "QueueTrack"
+        ],
+        "slug": "updatequeue"
       },
       {
         "name": "queueHasTrackWith",
@@ -560,6 +594,13 @@
         },
         {
           "name": "isMusic",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "boolean"
+        },
+        {
+          "name": "forcePlay",
           "tags": [],
           "docs": "",
           "complexTypes": [],

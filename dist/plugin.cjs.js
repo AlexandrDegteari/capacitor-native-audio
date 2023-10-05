@@ -153,6 +153,7 @@ class NativeAudioWeb extends core.WebPlugin {
         console.log(id);
         return Promise.resolve(undefined);
     }
+    // @ts-ignore
     playQueue(options) {
         options.id;
         return Promise.resolve(undefined);

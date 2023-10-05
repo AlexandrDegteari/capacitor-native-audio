@@ -7,6 +7,7 @@
 //
 
 import AVFoundation
+import Capacitor
 
 public class AudioAsset: NSObject, AVAudioPlayerDelegate {
 
@@ -19,16 +20,31 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
     let FADE_STEP: Float = 0.05
     let FADE_DELAY: Float = 0.08
 
-    var owner: NativeAudio
+    weak var owner: NativeAudio!
+    
+    let queueTrack: QueueTrack
+    weak var queuePlayer: QueuePlayer!
+    
+    var isPaused: Bool = false
+
 
     init(
         owner: NativeAudio,
-        withAssetId assetId:String, withPath path: String!, withChannels channels: NSNumber!, withVolume volume: NSNumber!, withFadeDelay delay: NSNumber!) {
-
+        queueTrack: QueueTrack,
+        queuePlayer: QueuePlayer,
+        withAssetId assetId:String,
+        withPath path: String!,
+        withChannels channels: NSNumber!,
+        withVolume volume: NSNumber!,
+        withFadeDelay delay: NSNumber!
+    ) {
+        
         self.owner = owner
+        self.queueTrack = queueTrack
+        self.queuePlayer = queuePlayer
         self.assetId = assetId
         self.channels = NSMutableArray.init(capacity: channels as! Int)
-
+        self.fadeDelay = delay
         super.init()
 
         let pathUrl: NSURL! = NSURL(string: path)
@@ -40,10 +56,9 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
             self.channels.addObjects(from: [player as Any])
             if channels == 1 {
                 NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.avPlayer.currentItem, queue: .main) { [weak self] _ in
-                    player.avPlayer.seek(to: CMTime.zero)
-                    player.avPlayer.play()
+                    guard let self = self else { return }
+                    queuePlayer.queueController?.completion(assetId: self.assetId)
                 }
-                NotificationCenter.default.addObserver(self, selector: #selector(notifyStop), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.avPlayer.currentItem)
             }
         }
     }
@@ -80,6 +95,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
         player.avPlayer.play()
         playIndex = Int(truncating: NSNumber(value: playIndex + 1))
         playIndex = Int(truncating: NSNumber(value: playIndex % channels.count))
+        isPaused = false
     }
 
     func playWithFade(time: TimeInterval) {
@@ -89,6 +105,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
     func pause() {
         let player: Player = channels.object(at: playIndex) as! Player
         player.avPlayer.pause()
+        isPaused = true
     }
 
     func resume() {
@@ -96,6 +113,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
 
 //        let timeOffset = player.deviceCurrentTime + 0.01
         player.avPlayer.play()
+        isPaused = false
     }
 
     func stop() {
@@ -108,6 +126,11 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
 
     func stopWithFade() {
         stop()
+    }
+    
+    func seekTo(time: Double) {
+        let player: Player! = channels.object(at: Int(playIndex)) as? Player
+        player.avPlayer.seek(to: CMTime(seconds: time, preferredTimescale: CMTimeScale(1000)))
     }
 
     func loop() {
@@ -139,10 +162,11 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
 
     public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         NSLog("playerDidFinish")
+        queuePlayer.queueController?.completion(assetId: self.assetId)
     }
 
     func playerDecodeError(player: AVAudioPlayer!, error: NSError!) {
-
+        queuePlayer.queueController?.error(assetId: self.assetId)
     }
 
     func isPlaying() -> Bool {
@@ -172,7 +196,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
 
 
 
-fileprivate class Player {
+class Player {
     var avPlayer: AVPlayer!
     var isLoop: Bool = false
 

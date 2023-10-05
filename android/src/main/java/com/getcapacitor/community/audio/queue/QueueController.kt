@@ -362,10 +362,6 @@ class QueueController(private val owner: NativeAudio, val id: String, val useFad
         return tracks[index]
     }
 
-    fun isPlaying() : Boolean {
-        return player?.isPlaying() == true || player?.isPaused() == true
-    }
-
     fun unload() {
         queueState = QueueState.IDLE
         player?.unload()

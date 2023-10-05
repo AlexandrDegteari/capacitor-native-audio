@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa408562-d8f3-475f-b767-435cb84d3db3" name="Changes" comment="">
+    <list default="true" id="fa408562-d8f3-475f-b767-435cb84d3db3" name="Changes" comment="fixed player android, ios">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/docs.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/docs.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/esm/definitions.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dist/esm/definitions.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/esm/web.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dist/esm/web.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/esm/web.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/esm/web.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/esm/web.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/esm/web.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/plugin.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/plugin.cjs.js" afterDir="false" />
@@ -25,6 +25,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2Oh0XFs3NzKESPbfK5N1hcQBgE0" />
   <component name="ProjectViewState">
@@ -44,7 +47,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/degtearialexandr/Projects/my-npm-plugins/capacitor-native-audio/node_modules/prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;ssh.settings&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/degtearialexandr/Projects/my-npm-plugins/capacitor-native-audio/node_modules/typescript/lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -80,6 +83,8 @@
       <workItem from="1682088797436" duration="967000" />
       <workItem from="1694896989848" duration="1082000" />
       <workItem from="1694901247022" duration="771000" />
+      <workItem from="1695051456483" duration="1223000" />
+      <workItem from="1695074266265" duration="2615000" />
     </task>
     <task id="LOCAL-00001" summary="fixed player android, ios">
       <created>1681998022242</created>
