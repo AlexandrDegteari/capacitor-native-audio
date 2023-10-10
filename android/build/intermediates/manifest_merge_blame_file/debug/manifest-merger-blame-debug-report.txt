@@ -4,34 +4,34 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="22"
-6-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+6-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
 7        android:targetSdkVersion="33" />
-7-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
+7-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml
 8
 9    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-9-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:5:7-76
-9-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:5:24-74
+9-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:5:7-76
+9-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:5:24-74
 10    <uses-permission android:name="android.permission.REORDER_TASKS" />
-10-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:6:7-74
-10-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:6:24-71
+10-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:6:7-74
+10-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:6:24-71
 11
 12    <application>
-12-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:8:7-17:21
+12-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:8:7-17:21
 13        <service
-13-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:10:9-13:59
+13-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:10:9-13:59
 14            android:name="com.getcapacitor.community.audio.service.NowPlayingService"
-14-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:11:11-84
+14-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:11:11-84
 15            android:exported="false"
-15-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:12:11-35
+15-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:12:11-35
 16            android:foregroundServiceType="mediaPlayback" />
-16-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:13:11-56
+16-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:13:11-56
 17
 18        <receiver
-18-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:14:11-16:22
+18-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:14:11-16:22
 19            android:name="com.getcapacitor.community.audio.service.NowPlayingBroadcastReceiver"
-19-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:14:21-104
+19-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:14:21-104
 20            android:exported="true" >
-20-->/Users/degtearialexandr/Projects/dreamcatchercapacitor/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:15:15-38
+20-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:15:15-38
 21        </receiver>
 22    </application>
 23

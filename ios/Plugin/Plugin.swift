@@ -3,6 +3,7 @@ import Foundation
 import Capacitor
 import CoreAudio
 
+
 enum MyError: Error {
     case runtimeError(String)
 }
@@ -17,12 +18,18 @@ public class NativeAudio: CAPPlugin {
     var audioList: [String : Any] = [:]
     var fadeMusic = false
     var session = AVAudioSession.sharedInstance()
-    
+
+    let nowPlayingContoroller = NowPlayingController()
+
     private var queueControllers: [String : QueueController] = [:]
     private var sleepTimer: Timer2?
 
     public override func load() {
         super.load()
+
+        nowPlayingContoroller.stopCallback = { [weak self] in
+            self?.stopAllQueues()
+        }
 
         self.fadeMusic = false
 
@@ -232,12 +239,18 @@ public class NativeAudio: CAPPlugin {
             return queueController
         }()
         
-        var jsTrackz : [JSObject] = []
+        var jsTrackz : [[String: Any]] = []
         for i in 0 ..< jsTracks.count {
             let track = jsTracks[i] as! JSObject
+            var dictionary: [String: Any] = [:]
+            dictionary["id"] = String(track["id"] as? Int ?? 0)
+            dictionary["url"] = track["url"] as? String ?? ""
+            dictionary["name"] = track["name"] as? String ?? ""
+            dictionary["isMusic"] = (track["isMusic"] as? Int ?? 0) == 1
+            dictionary["forcePlay"] = (track["forcePlay"] as? Int ?? 0) == 1
             jsTrackz.append(track)
         }
-        
+
         current.playQueue(
             jsTracks: jsTrackz,
             startIndex: index,
@@ -404,7 +417,7 @@ public class NativeAudio: CAPPlugin {
         
         let trackId = queueControllers[queueId]?.player?.getPlayingTrackId()
         call.resolve([
-            "trackId" : trackId
+            "trackId" : trackId ?? ""
         ])
     }
     
@@ -500,12 +513,18 @@ public class NativeAudio: CAPPlugin {
             return
         }
         
-        var jsTrackz : [JSObject] = []
+        var jsTrackz : [[String: Any]] = []
         for i in 0 ..< jsTracks.count {
             let track = jsTracks[i] as! JSObject
+            var dictionary: [String: Any] = [:]
+            dictionary["id"] = String(track["id"] as? Int ?? 0)
+            dictionary["url"] = track["url"] as? String ?? ""
+            dictionary["name"] = track["name"] as? String ?? ""
+            dictionary["isMusic"] = (track["isMusic"] as? Int ?? 0) == 1
+            dictionary["forcePlay"] = (track["forcePlay"] as? Int ?? 0) == 1
             jsTrackz.append(track)
         }
-        
+
         
         guard let queue = queueControllers[queueId] else {
             call.reject("no queue")
@@ -546,11 +565,7 @@ public class NativeAudio: CAPPlugin {
         sleepTimer = Timer2(interval: time, function: { [weak self] in
             guard let self = self else { return }
             sleepTimer?.invalidate()
-            for (_, controller) in queueControllers {
-                controller.unload()
-            }
-            queueControllers = [:]
-            notifyListeners(QueueController.kEventAllTracksStop, data: [:])
+            stopAllQueues()
         })
         sleepTimer!.start()
         call.resolve()
@@ -621,5 +636,13 @@ public class NativeAudio: CAPPlugin {
                 throw MyError.runtimeError(Constant.ErrorAssetNotFound)
             }
         }
+    }
+
+    private func stopAllQueues() {
+        for (_, controller) in queueControllers {
+            controller.unload()
+        }
+        queueControllers = [:]
+        notifyListeners(QueueController.kEventAllTracksStop, data: [:])
     }
 }

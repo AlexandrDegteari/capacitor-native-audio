@@ -7,7 +7,6 @@
 //
 
 import AVFoundation
-import Capacitor
 
 public class AudioAsset: NSObject, AVAudioPlayerDelegate {
 
@@ -56,6 +55,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
                 NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.avPlayer.currentItem, queue: .main) { [weak self] _ in
                     guard let self = self else { return }
                     queuePlayer.queueController?.completion(assetId: self.assetId)
+                    owner.nowPlayingContoroller.playerStoppedPlaying(track: self.queueTrack)
                 }
             }
         }
@@ -94,6 +94,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
         playIndex = Int(truncating: NSNumber(value: playIndex + 1))
         playIndex = Int(truncating: NSNumber(value: playIndex % channels.count))
         isPaused = false
+        owner.nowPlayingContoroller.playerStartedPlaying(track: self.queueTrack)
     }
 
     func playWithFade(time: TimeInterval) {
@@ -104,6 +105,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
         let player: Player = channels.object(at: playIndex) as! Player
         player.avPlayer.pause()
         isPaused = true
+        owner.nowPlayingContoroller.playerStoppedPlaying(track: self.queueTrack)
     }
 
     func resume() {
@@ -112,6 +114,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
 //        let timeOffset = player.deviceCurrentTime + 0.01
         player.avPlayer.play()
         isPaused = false
+        owner.nowPlayingContoroller.playerStartedPlaying(track: queueTrack)
     }
 
     func stop() {
@@ -120,6 +123,7 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
             player.avPlayer.pause()
 //            player.avPlayer.replaceCurrentItem(with: nil)
         }
+        owner.nowPlayingContoroller.playerStoppedPlaying(track: self.queueTrack)
     }
 
     func stopWithFade() {

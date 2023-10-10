@@ -34,8 +34,4 @@ CAP_PLUGIN(NativeAudio, "NativeAudio",
              CAP_PLUGIN_METHOD(unloadQueue, CAPPluginReturnPromise);
              CAP_PLUGIN_METHOD(setSleepTimer, CAPPluginReturnPromise);
              CAP_PLUGIN_METHOD(cancelSleepTimer, CAPPluginReturnPromise);
-           
-             
-             
-           
 )
