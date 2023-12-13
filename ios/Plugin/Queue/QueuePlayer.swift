@@ -51,6 +51,7 @@ class QueuePlayer: NSObject {
             useFade: self.useFade
         )
         duration = playing?.getDuration() ?? 0.0
+        playing!.trailing = false
         playing!.play(time: time)
         currentTime = 0.0
         scheduleTimer()
@@ -207,6 +208,7 @@ class QueuePlayer: NSObject {
 
         trailing?.unload()
         trailing = playing
+        trailing!.trailing = true
         timer?.invalidate()
         startPlay(track: nextTrack, time: 0.0)
     }

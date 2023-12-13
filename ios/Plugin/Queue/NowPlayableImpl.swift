@@ -75,11 +75,11 @@ class NowPlaybaleImpl: NowPlayable {
 
         // Make the audio session inactive.
         
-        do {
-            try AVAudioSession.sharedInstance().setActive(false)
-        } catch {
-            print("Failed to deactivate audio session, error: \(error)")
-        }
+//        do {
+//            try AVAudioSession.sharedInstance().setActive(false)
+//        } catch {
+//            print("Failed to deactivate audio session, error: \(error)")
+//        }
 
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [:]
     }

@@ -15,6 +15,8 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
     var assetId: String = ""
     var initialVolume: NSNumber = 1.0
 
+    var trailing = false
+
     let FADE_STEP: Float = 0.05
     let FADE_DELAY: Float = 0.08
 
@@ -55,6 +57,9 @@ public class AudioAsset: NSObject, AVAudioPlayerDelegate {
                 NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.avPlayer.currentItem, queue: .main) { [weak self] _ in
                     guard let self = self else { return }
                     queuePlayer.queueController?.completion(assetId: self.assetId)
+                    if trailing {
+                        return
+                    }
                     owner.nowPlayingContoroller.playerStoppedPlaying(track: self.queueTrack)
                 }
             }

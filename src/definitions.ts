@@ -45,7 +45,6 @@ export interface NativeAudio {
 
   unloadQueue(options: { id: string }): Promise<void>;
 
-
   setSleepTimer(options: { time: number } ): Promise<void>;
   cancelSleepTimer(options: {}): Promise<void>;
 }
