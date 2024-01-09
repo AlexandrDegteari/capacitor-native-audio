@@ -47,6 +47,8 @@ export interface NativeAudio {
 
   setSleepTimer(options: { time: number } ): Promise<void>;
   cancelSleepTimer(options: {}): Promise<void>;
+
+  requestNotificationPermission(options: { mode: number, text: string, positiveText: string, negativeText: string} ): Promise<{ acquired: boolean }>
 }
 
 export interface ConfigureOptions {

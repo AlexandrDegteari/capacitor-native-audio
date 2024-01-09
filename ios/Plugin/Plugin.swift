@@ -578,6 +578,10 @@ public class NativeAudio: CAPPlugin {
         call.resolve()
     }
 
+    @objc func requestNotificationPermission(_ call: CAPPluginCall) {
+        call.resolve(["acquired": false])
+    }
+
     private func preloadAsset(_ call: CAPPluginCall, isComplex complex: Bool) {
         let audioId = call.getString(Constant.AssetIdKey) ?? ""
         let channels: NSNumber?
@@ -645,4 +649,5 @@ public class NativeAudio: CAPPlugin {
         queueControllers = [:]
         notifyListeners(QueueController.kEventAllTracksStop, data: [:])
     }
+
 }

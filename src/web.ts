@@ -216,6 +216,11 @@ export class NativeAudioWeb extends WebPlugin implements NativeAudio {
     options.id
     return Promise.resolve(undefined);
   }
+
+  requestNotificationPermission(options: { mode: number, text: string, positiveText: string, negativeText: string} ): Promise<{ acquired: boolean }> {
+    options.text
+    return Promise.resolve({ acquired: false });
+  }
 }
 
 const NativeAudio = new NativeAudioWeb();

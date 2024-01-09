@@ -14,25 +14,28 @@
 10    <uses-permission android:name="android.permission.REORDER_TASKS" />
 10-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:6:7-74
 10-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:6:24-71
-11
-12    <application>
-12-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:8:7-17:21
-13        <service
-13-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:10:9-13:59
-14            android:name="com.getcapacitor.community.audio.service.NowPlayingService"
-14-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:11:11-84
-15            android:exported="false"
-15-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:12:11-35
-16            android:foregroundServiceType="mediaPlayback" />
-16-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:13:11-56
-17
-18        <receiver
-18-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:14:11-16:22
-19            android:name="com.getcapacitor.community.audio.service.NowPlayingBroadcastReceiver"
-19-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:14:21-104
-20            android:exported="true" >
-20-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:15:15-38
-21        </receiver>
-22    </application>
-23
-24</manifest>
+11    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+11-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:7:7-79
+11-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:7:24-76
+12
+13    <application>
+13-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:9:7-18:21
+14        <service
+14-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:11:9-14:59
+15            android:name="com.getcapacitor.community.audio.service.NowPlayingService"
+15-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:12:11-84
+16            android:exported="false"
+16-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:13:11-35
+17            android:foregroundServiceType="mediaPlayback" />
+17-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:14:11-56
+18
+19        <receiver
+19-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:15:11-17:22
+20            android:name="com.getcapacitor.community.audio.service.NowPlayingBroadcastReceiver"
+20-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:15:21-104
+21            android:exported="true" >
+21-->/Users/olegrussu/Downloads/dreamcatcher (1)/src-capacitor/node_modules/capacitor-native-audio-streamer/android/src/main/AndroidManifest.xml:16:15-38
+22        </receiver>
+23    </application>
+24
+25</manifest>

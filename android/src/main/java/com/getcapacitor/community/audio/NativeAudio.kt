@@ -1,13 +1,17 @@
 package com.getcapacitor.community.audio
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.content.res.AssetFileDescriptor
 import android.media.AudioManager
 import android.media.AudioManager.OnAudioFocusChangeListener
+import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import com.getcapacitor.JSObject
 import com.getcapacitor.Plugin
@@ -18,8 +22,8 @@ import com.getcapacitor.annotation.Permission
 import com.getcapacitor.community.audio.queue.HandlerThread
 import com.getcapacitor.community.audio.queue.QueueController
 import com.getcapacitor.community.audio.queue.QueueTrack
+import com.getcapacitor.community.audio.service.FirebaseEventConstants
 import com.getcapacitor.community.audio.service.ForegroundServiceController
-import com.getcapacitor.community.audio.service.NowPlayingBroadcastReceiver
 import java.util.*
 
 @CapacitorPlugin(permissions = [Permission(strings = [Manifest.permission.MODIFY_AUDIO_SETTINGS]), Permission(strings = [Manifest.permission.WRITE_EXTERNAL_STORAGE]), Permission(strings = [Manifest.permission.READ_PHONE_STATE])])
@@ -36,6 +40,8 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
     @JvmField
     var foregroundServiceController = ForegroundServiceController(this)
     private var sleepTimer: Timer? = null
+
+    var requestNotificationPermissionHandler: ((Boolean) -> Unit)? = null
 
     init {
         queueHandler.start()
@@ -62,6 +68,19 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
 
                 }
             }, filter)
+
+
+            val notificationResultFilter = IntentFilter()
+            notificationResultFilter.addAction(getBridge().activity.packageName + ".notification_permission_result")
+            getBridge().activity.registerReceiver(object : BroadcastReceiver() {
+                override fun onReceive(p0: Context?, p1: Intent?) {
+                    val intent = p1 ?: return
+                    val result = intent.getBooleanExtra("result", false)
+                    requestNotificationPermissionHandler?.invoke(result)
+                    requestNotificationPermissionHandler = null
+                }
+            }, notificationResultFilter)
+
         }
     }
 
@@ -645,6 +664,62 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
             }
             call.reject("no timer was set")
         } catch (ex: Exception) {
+            call.reject(ex.message)
+        }
+    }
+
+    @PluginMethod
+    fun requestNotificationPermission(call: PluginCall) {
+        try {
+            requestNotificationPermissionHandler = null
+            val mode = call.getInt("mode", -1)!!
+            if (mode == 1) {
+                call.reject("ios only")
+                return
+            }
+            val resolveFunc : (Boolean) -> Unit = {
+                val returnData = JSObject()
+                returnData.put("acquired", it)
+                call.resolve(returnData)
+            }
+            if (android.os.Build.VERSION.SDK_INT < 33) {
+                resolveFunc(true)
+                return
+            }
+
+            if (activity.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                resolveFunc(true)
+                return
+            }
+
+            val requestFunc = {
+                activity.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 0)
+                requestNotificationPermissionHandler = {
+                    resolveFunc(it)
+                }
+            }
+
+            val text = call.getString("text")
+            val positiveText = call.getString("positiveText")
+            val negativeText = call.getString("negativeText")
+            if (TextUtils.isEmpty(text) ||
+                TextUtils.isEmpty(positiveText) ||
+                TextUtils.isEmpty(negativeText)) {
+                requestFunc()
+                return
+            }
+            AlertDialog.Builder(activity)
+                .setMessage(text)
+                .setPositiveButton(positiveText) { _, _ ->
+                    requestFunc()
+                }
+                .setNegativeButton(negativeText) { _, _ ->
+                    resolveFunc(false)
+                }
+                .create()
+                .show()
+            return
+        } catch (ex: java.lang.Exception) {
             call.reject(ex.message)
         }
     }
