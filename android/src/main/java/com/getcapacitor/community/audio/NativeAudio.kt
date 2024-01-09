@@ -1,6 +1,7 @@
 package com.getcapacitor.community.audio
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -13,6 +14,7 @@ import android.media.AudioManager.OnAudioFocusChangeListener
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import com.getcapacitor.JSObject
 import com.getcapacitor.Plugin
 import com.getcapacitor.PluginCall
@@ -693,6 +695,7 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
             }
 
             val requestFunc = {
+                activity.getSharedPreferences(activity.packageName, Activity.MODE_PRIVATE).edit().putBoolean(Manifest.permission.POST_NOTIFICATIONS + "-requested", true).apply()
                 activity.requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 0)
                 requestNotificationPermissionHandler = {
                     resolveFunc(it)
@@ -702,9 +705,11 @@ class NativeAudio : Plugin(), OnAudioFocusChangeListener {
             val text = call.getString("text")
             val positiveText = call.getString("positiveText")
             val negativeText = call.getString("negativeText")
-            if (TextUtils.isEmpty(text) ||
+            val requestedEarlier = activity.getSharedPreferences(activity.packageName, Activity.MODE_PRIVATE).getBoolean(Manifest.permission.POST_NOTIFICATIONS + "-requested", false)
+            val showExplanation = ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.POST_NOTIFICATIONS) or !requestedEarlier
+            if ((TextUtils.isEmpty(text) ||
                 TextUtils.isEmpty(positiveText) ||
-                TextUtils.isEmpty(negativeText)) {
+                TextUtils.isEmpty(negativeText)) || !showExplanation) {
                 requestFunc()
                 return
             }
